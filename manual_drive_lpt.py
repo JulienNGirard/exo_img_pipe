@@ -21,7 +21,7 @@ matplotlib.use('Agg')
 # watch_dir = "/databf/nenufar-nri/LT02/202?/??/*HD_189733*"
 
 # preprocess_dir = "/databf/nenufar-nri/LT02/"
-postprocess_dir = "/data/xzhang/jupiter/"
+postprocess_dir = "/data/xzhang/lpt/"
 pipe_dir = "/home/xzhang/software/exo_img_pipe/"
 # lockfile = "/home/xzhang/software/exo_img_pipe/lock.file"
 singularity_file = "/home/xzhang/software/ddf_dev2_ateam.sif"
