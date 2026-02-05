@@ -7,8 +7,8 @@ import numpy as np
 from dask import delayed, compute
 from casatools import table
 from templates.Find_Bad_MAs_template import find_bad_MAs
-from templates.Make_Target_List_template import make_target_list
-from templates.Plot_target_distri_template import plot_target_distribution
+from templates.Make_Target_List_template import make_target_list_FRB
+from templates.Plot_target_distri_template import plot_target_distribution_FRB
 from templates.Noise_esti_template import generate_noise_map_v, calculate_noise_for_window, apply_gaussian_filter
 from templates.Noise_esti_template import generate_and_save_weight_map_v, source_detection, generate_noise_map_i, generate_and_save_weight_map_i
 import matplotlib.pyplot as plt
@@ -33,17 +33,17 @@ CALIBRATORS = ['CYG_A', 'CAS_A', 'TAU_A', 'VIR_A']
 # How many SB per processing chunk
 # chunk_num = 12
 
-cal = 'CAS_A'
+cal = 'CYG_A'
 cali_check = False
-cal_dir = '20250429_104500_20250429_110000_CAS_A_TRACKING/L1'
-exo_dir = '20250429_110000_20250429_144500_JUPITER_TRACKING/L1'
-target_name = 'Jupiter'
+cal_dir = '20260127_085000_20260127_090000_CYG_A_TRACKING/L1'
+exo_dir = '20260127_070000_20260127_085000_LTP/L1'
+target_name = 'NAME CHIME J1634+44'
 
 # How many channels per SB
-chan_per_SB_origin = 6
+chan_per_SB_origin = 2
 ave_chan = 1
 chan_per_SB = int(chan_per_SB_origin/ave_chan)
-ave_time = 2
+ave_time = 1
 
 # chan_per_SB = 12
 
@@ -553,16 +553,16 @@ def dynspec(exo_dir: str):
 
     # Not generating dynamic spec for RP3A
 
-    # make_target_list(target_name, postprocess_dir, exo_dir)
-    # plot_target_distribution(postprocess_dir, exo_dir)
+    make_target_list_FRB(target_name, postprocess_dir, exo_dir)
+    plot_target_distribution_FRB(postprocess_dir, exo_dir)
 
-    # cmd_dynspec = (
-    #     f'ms2dynspec.py --ms {postprocess_dir}{exo_dir}/GSB.MS --data KMS_SUB --model DDF_PREDICT --rad 11 --LogBoring 1 --uv 0.067,1000 '
-    #     f'--WeightCol IMAGING_WEIGHT --srclist {postprocess_dir}{exo_dir}/target.txt --noff 0 --NCPU 96 --TChunkHours 1 --OutDirName {postprocess_dir}{exo_dir}/dynamic_spec'
-    # )
+    cmd_dynspec = (
+        f'ms2dynspec.py --ms {postprocess_dir}{exo_dir}/GSB.MS --data KMS_SUB --model DDF_PREDICT --rad 11 --LogBoring 1 --uv 0.067,1000 '
+        f'--WeightCol IMAGING_WEIGHT --srclist {postprocess_dir}{exo_dir}/target.txt --noff 0 --NCPU 96 --TChunkHours 1 --OutDirName {postprocess_dir}{exo_dir}/dynamic_spec'
+    )
 
-    # combined_dynspec = f"{singularity_command} {cmd_dynspec}"
-    # subprocess.run(combined_dynspec, shell=True, check=True)
+    combined_dynspec = f"{singularity_command} {cmd_dynspec}"
+    subprocess.run(combined_dynspec, shell=True, check=True)
 
 # Task 7. Source-finding
 
@@ -982,7 +982,7 @@ def exo_pipe(exo_dir, cal_dir, cal):
 
     dynspec(exo_dir)
 
-    # source_find_v(exo_dir, time_windows, freq_windows)
+    source_find_v(exo_dir, time_windows, freq_windows)
 
     # source_find_i(exo_dir, time_windows, freq_windows)
 
