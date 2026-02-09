@@ -35,13 +35,13 @@ CALIBRATORS = ['CYG_A', 'CAS_A', 'TAU_A', 'VIR_A']
 
 cal = 'CYG_A'
 cali_check = False
-cal_dir = '20260127_085000_20260127_090000_CYG_A_TRACKING/L1'
-exo_dir = '20260127_070000_20260127_085000_LTP/L1'
-target_name = 'NAME CHIME J1634+44'
+cal_dir = '20240227_080000_20240227_081500_CYG_A_TOO_2/L1'
+exo_dir = '20240227_081500_20240227_091500_J2000_TRACKING/L1'
+target_name = '[HRM2023] GPM J1839-10'
 
 # How many channels per SB
-chan_per_SB_origin = 2
-ave_chan = 1
+chan_per_SB_origin = 64
+ave_chan = 4
 chan_per_SB = int(chan_per_SB_origin/ave_chan)
 ave_time = 1
 
