@@ -41,9 +41,9 @@ target_name = '[HRM2023] GPM J1839-10'
 
 # How many channels per SB
 chan_per_SB_origin = 64
-ave_chan = 4
+ave_chan = 16
 chan_per_SB = int(chan_per_SB_origin/ave_chan)
-ave_time = 1
+ave_time = 4
 
 # chan_per_SB = 12
 
@@ -984,7 +984,7 @@ def exo_pipe(exo_dir, cal_dir, cal):
 
     source_find_v(exo_dir, time_windows, freq_windows)
 
-    # source_find_i(exo_dir, time_windows, freq_windows)
+    source_find_i(exo_dir, time_windows, freq_windows)
 
     # clearup(exo_dir)
 
